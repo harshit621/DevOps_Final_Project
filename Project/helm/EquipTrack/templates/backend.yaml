@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: equiptrack-backend
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: equiptrack-backend
+  template:
+    metadata:
+      labels:
+        app: equiptrack-backend
+    spec:
+      containers:
+        - name: backend
+          image: "{{ .Values.backend.image }}:{{ .Values.backend.tag }}"
+          ports:
+            - containerPort: {{ .Values.backend.port }}
+          env:
+            - name: DATABASE_URL
+              value: {{ .Values.backend.databaseUrl | quote }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: equiptrack-backend
+spec:
+  type: ClusterIP
+  selector:
+    app: equiptrack-backend
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: equiptrack-backend
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: equiptrack-backend
+  template:
+    metadata:
+      labels:
+        app: equiptrack-backend
+    spec:
+      containers:
+        - name: backend
+          image: "{{ .Values.backend.image }}:{{ .Values.backend.tag }}"
+          ports:
+            - containerPort: {{ .Values.backend.port }}
+          env:
+            - name: DATABASE_URL
+              value: {{ .Values.backend.databaseUrl | quote }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: equiptrack-backend
+spec:
+  type: ClusterIP
+  selector:
+    app: equiptrack-backend
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000

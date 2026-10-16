@@ -1,0 +1,10 @@
+frontend:
+  image: ghcr.io/YOUR_ORG/EquipTrack-frontend
+backend:
+  image: ghcr.io/YOUR_ORG/EquipTrack-backend
+replicaCount: 2
+ingress:
+  enabled: true
+  host: EquipTrack.example.com
+hpa:
+  enabled: true

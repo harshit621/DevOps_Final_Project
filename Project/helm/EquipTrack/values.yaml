@@ -1,0 +1,13 @@
+namespace: equiptrack
+replicas: 2
+
+backend:
+  image: ghcr.io/your-github-username/equiptrack-backend
+  tag: "replace-with-commit-sha"
+  port: 8000
+  databaseUrl: "postgresql://postgres:postgrespassword@postgres:5432/equiptrack"
+
+frontend:
+  image: ghcr.io/your-github-username/equiptrack-frontend
+  tag: "replace-with-commit-sha"
+  port: 8080
